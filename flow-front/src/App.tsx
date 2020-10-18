@@ -26,7 +26,7 @@ const App = () => {
   const scrCheck = extensions.has("scr")
   const jsCheck = extensions.has("js")
 
-  const server = "http://35.197.107.144:8000"
+  const server = "http://localhost:8000"
 
   useEffect(() => {
     const initExtensions = async () => {
