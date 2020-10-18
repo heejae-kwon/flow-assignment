@@ -22,12 +22,12 @@ const App = () => {
   const scrCheck = extensions.has("scr")
   const jsCheck = extensions.has("js")
 
-  const server = ""
+  const server = "http://35.197.107.144:8000"
 
   useEffect(() => {
     const initExtensions = async () => {
       try {
-        const result = ((await axios.get('http://localhost:8000/api/extension')).data) as GetAllExtensions
+        const result = ((await axios.get(`${server}/api/extension`)).data) as GetAllExtensions
         const newExtensions = new Set<string>()
         result.extensionList.forEach((value) => {
           newExtensions.add(value.extension)
@@ -43,7 +43,7 @@ const App = () => {
   const addCustomExtension = async (newExtension: string) => {
     if (extensions.size < 200) {
       try {
-        await axios.put(`http://localhost:8000/api/extension?extensionName=${newExtension}`)
+        await axios.put(`${server}/api/extension?extensionName=${newExtension}`)
         const newExtensions = new Set(extensions)
         newExtensions.add(newExtension)
         setExtensions(newExtensions)
@@ -54,7 +54,7 @@ const App = () => {
   }
   const deleteCustomExtension = async (oldExtension: string) => {
     try {
-      await axios.delete(`http://localhost:8000/api/extension?extensionName=${oldExtension}`)
+      await axios.delete(`${server}/api/extension?extensionName=${oldExtension}`)
       const newExtensions = new Set(extensions)
       newExtensions.delete(oldExtension)
       setExtensions(newExtensions)
