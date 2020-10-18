@@ -12,6 +12,10 @@ interface Extension {
   extension: string
 }
 
+function fixedEncodeURI(str: string) {
+  return encodeURI(str).replace(/%5B/g, "[").replace(/%5D/g, "]");
+}
+
 const App = () => {
   const [extensions, setExtensions] = useState<Set<string>>(new Set)
   const batCheck = extensions.has("bat")
@@ -27,7 +31,7 @@ const App = () => {
   useEffect(() => {
     const initExtensions = async () => {
       try {
-        const result = ((await axios.get(`${server}/api/extension`)).data) as GetAllExtensions
+        const result = ((await axios.get(fixedEncodeURI(`${server}/api/extension`))).data) as GetAllExtensions
         const newExtensions = new Set<string>()
         result.extensionList.forEach((value) => {
           newExtensions.add(value.extension)
@@ -43,7 +47,7 @@ const App = () => {
   const addCustomExtension = async (newExtension: string) => {
     if (extensions.size < 200) {
       try {
-        await axios.put(`${server}/api/extension?extensionName=${newExtension}`)
+        await axios.put(fixedEncodeURI(`${server}/api/extension?extensionName=${newExtension}`))
         const newExtensions = new Set(extensions)
         newExtensions.add(newExtension)
         setExtensions(newExtensions)
@@ -54,7 +58,7 @@ const App = () => {
   }
   const deleteCustomExtension = async (oldExtension: string) => {
     try {
-      await axios.delete(`${server}/api/extension?extensionName=${oldExtension}`)
+      await axios.delete(fixedEncodeURI(`${server}/api/extension?extensionName=${oldExtension}`))
       const newExtensions = new Set(extensions)
       newExtensions.delete(oldExtension)
       setExtensions(newExtensions)

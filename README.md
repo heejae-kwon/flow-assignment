@@ -12,3 +12,6 @@ Indexes:
 CSS 활용이 미숙하여 프론트엔드 부분이 미흡해 보일 수 있는 점 양해 부탁드리겠습니다.
 Insert api에서 이미 들어가있는 확장자를 체크 합니다.
 제한조건에대해서 프론트와 백엔드, 둘다 체크하여 제한을 걸어주었습니다.
+백엔드와 db는 google cloud platform 인스턴스에 올려 사용중입니다.
+
+사이트 url : https://heejae-kwon.github.io/flow-assignment/
